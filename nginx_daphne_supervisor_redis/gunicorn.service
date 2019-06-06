@@ -1,0 +1,14 @@
+# /etc/systemd/system/gunicorn.service 
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=user
+Group=www-data
+WorkingDirectory=/home/user/project/app
+ExecStart=/home/user/project/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/user/project/app/backend.sock backend.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
